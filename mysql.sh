@@ -5,14 +5,14 @@ destination=$2
 db_host=$3
 db_user=$4
 db_password=$5
-destination=$6
+db_port=$6
 
 timestamp=$(date +%Y-%m-%d_%H-%M-%S)
 file_name_or_directory = $database"_backup_"$timestamp
 
 
 # Change to backup directory
-cd destination
+cd $destination
 
 function run_backup(){
 

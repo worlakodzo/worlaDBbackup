@@ -8,7 +8,7 @@ db_password=$5
 db_port=$6
 
 timestamp=$(date +%Y-%m-%d_%H-%M-%S)
-file_name_or_directory = $database"_backup_"$timestamp
+file_name_or_directory=$database"_backup_"$timestamp
 
 
 # Change to backup directory

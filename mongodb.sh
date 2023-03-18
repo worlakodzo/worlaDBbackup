@@ -10,20 +10,19 @@ db_port=$6
 timestamp=$(date +%Y-%m-%d_%H-%M-%S)
 file_name_or_directory = $database"_backup_"$timestamp
 
-
 # Change to backup directory
 cd $destination
 
 function run_backup(){
 
     # Backup the database
-    mysqldump -h $db_host -u $db_user -p$db_password $database > $file_name_or_directory".sql"
+    mongodump --db $database --username $db_user --password $db_password --host $db_host --out $file_name_or_directory
 
-    # Zip the backup file
-    zip $file_name_or_directory".zip" $file_name_or_directory".sql"
+    # Zip the backup folder
+    zip -r $file_name_or_directory".zip" $file_name_or_directory
 
-    # Remove the .sql file after zipping
-    rm $file_name_or_directory".sql"
+    # Remove the backup folder after zipping
+    rm -rf $file_name_or_directory
 
 }
 

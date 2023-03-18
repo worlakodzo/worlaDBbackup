@@ -10,20 +10,19 @@ db_port=$6
 timestamp=$(date +%Y-%m-%d_%H-%M-%S)
 file_name_or_directory = $database"_backup_"$timestamp
 
-
 # Change to backup directory
 cd $destination
 
 function run_backup(){
 
-    # Backup the database
-    mysqldump -h $db_host -u $db_user -p$db_password $database > $file_name_or_directory".sql"
+    export PGPASSWORD=$db_password
+    pg_dump -F t -U $db_user -h $db_host $database -f $file_name_or_directory".tar"
 
-    # Zip the backup file
-    zip $file_name_or_directory".zip" $file_name_or_directory".sql"
+    # Zip the backup folder
+    zip -j $file_name_or_directory".zip" $file_name_or_directory".tar"
 
-    # Remove the .sql file after zipping
-    rm $file_name_or_directory".sql"
+    # Remove the backup folder after zipping
+    rm $file_name_or_directory".tar"
 
 }
 
